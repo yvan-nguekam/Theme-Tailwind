@@ -1,16 +1,28 @@
-/* page.tsx */
-
 "use client";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+    }
+  }, []);
+
   const toggleTheme = () => {
-    document.documentElement.classList.toggle("dark");
+    if (document.documentElement.classList.contains("dark")) {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    } else {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    }
   };
 
   return (
-    <main className="flex items-center justify-center p-20 pt-32">
+    <main className="flex items-center justify-center p-96 pt-32">
       <div>
-        <h1 className="max-w-3xl text-center font-bold text-slate-900 dark:text-cyan-500 text-5xl leading-tight mb-3">
+        <h1 className="text-center font-bold text-slate-900 dark:text-cyan-500 text-5xl leading-tight mb-3">
           Tailwind CSS: Dark Mode Tutorial
         </h1>
         <p className="text-lg font-medium text-slate-700 dark:text-cyan-700 text-center mb-5">
